@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Modern_Antiqua } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const modernAntique = Modern_Antiqua({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Social Media App",
@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={modernAntique.className}>{children}</body>
     </html>
   );
 }

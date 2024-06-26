@@ -1,5 +1,7 @@
-import Image from "next/image";
-
 export default function Home() {
-  return <>Hello, Welcome</>;
+  return (
+    <section className="h-screen flex items-center justify-center text-3xl">
+      Hello, Welcome to Social Media Application
+    </section>
+  );
 }
