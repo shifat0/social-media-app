@@ -16,7 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={modernAntique.className}>{children}</body>
+      <body
+        className={`bg-secondary text-secondary-foreground dark:bg-primary dark:text-primary-foreground  ${modernAntique.className}`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
