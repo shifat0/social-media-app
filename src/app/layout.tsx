@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Modern_Antiqua } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/navbar/Navbar";
 
 const modernAntique = Modern_Antiqua({ weight: "400", subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body
         className={`bg-secondary text-secondary-foreground dark:bg-primary dark:text-primary-foreground  ${modernAntique.className}`}
       >
+        <Navbar />
         {children}
       </body>
     </html>
