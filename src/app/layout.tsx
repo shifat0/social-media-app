@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Modern_Antiqua } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
+import { Suspense } from "react";
 
 const modernAntique = Modern_Antiqua({ weight: "400", subsets: ["latin"] });
 
@@ -19,9 +20,12 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`bg-secondary text-secondary-foreground dark:bg-primary dark:text-primary-foreground  ${modernAntique.className}`}
+        // suppressHydrationWarning={true}
       >
-        <Navbar />
-        {children}
+        <Suspense fallback={null}>
+          <Navbar />
+        </Suspense>
+        <main className="container">{children}</main>
       </body>
     </html>
   );
