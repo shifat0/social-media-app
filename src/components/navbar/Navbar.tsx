@@ -5,6 +5,7 @@ import Icon from "@/lib/icon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { modernAntique } from "@/app/fonts";
 
 type Props = {};
 
@@ -46,11 +47,16 @@ export default function Navbar({}: Props) {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky top-0 bg-primary-foreground shadow-sm">
+    <nav
+      className={cn(
+        "sticky top-0 bg-primary-foreground shadow-sm",
+        !isLoggedIn && "hidden"
+      )}
+    >
       <div className="container">
         {/* Left Side */}
         <div className="flex items-center justify-between gap-6 my-2 md:my-0">
-          <h1>Social Media</h1>
+          <h1 className={`${modernAntique.className}`}>Social Media</h1>
           <div className="hidden md:flex items-center justify-between gap-3 w-1/2">
             {navData?.map((navItem, index) => (
               <Link
