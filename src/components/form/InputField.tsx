@@ -16,9 +16,8 @@ interface Props {
   type?: string;
   placeholder?: string;
   required?: boolean;
-  className?: string;
   labelClassName?: string;
-  inputClassName?: string;
+  className?: string;
 }
 
 export default function InputField({
@@ -29,7 +28,7 @@ export default function InputField({
   placeholder,
   required = true,
   labelClassName,
-  inputClassName,
+  className,
 }: Props) {
   const onSubmit = (data: any) => {
     console.log(data);
@@ -48,7 +47,7 @@ export default function InputField({
             <Input
               type={type}
               placeholder={placeholder}
-              className={cn("border", inputClassName)}
+              className={cn(className, "border")}
               {...field}
             />
           </FormControl>
