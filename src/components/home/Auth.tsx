@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import InputField from "../form/InputField";
 import { signUpFormSchema, loginFormSchema } from "@/lib/formSchema";
+import getGoogleOAuthUrl from "@/utils/getGoogleOAuthUrl";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Auth() {
   const [authMode, setAuthMode] = useState<string>("login");
@@ -45,8 +47,21 @@ export default function Auth() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-center gap-4"
+        className="w-1/2 my-2 flex flex-col justify-center gap-4 bg-white p-5 rounded-xl shadow-md"
       >
+        <div className="flex flex-col items-center justify-center gap-4">
+          <h2>Login with</h2>
+
+          <a
+            href={getGoogleOAuthUrl()}
+            className="bg-secondary p-2 rounded-md shadow-md"
+          >
+            <FcGoogle size={30} />
+          </a>
+
+          <p>---- Or -----</p>
+        </div>
+
         {authMode !== "login" && (
           <>
             <InputField
@@ -54,7 +69,7 @@ export default function Auth() {
               name="firstName"
               label="First Name"
               required={true}
-              className="rounded-full"
+              className="rounded-full shadow-inner"
             />
 
             <InputField
@@ -62,7 +77,7 @@ export default function Auth() {
               name="lastName"
               label="Last Name"
               required={true}
-              className="rounded-full"
+              className="rounded-full shadow-inner"
             />
           </>
         )}
@@ -73,7 +88,7 @@ export default function Auth() {
           label="Email"
           type="email"
           required={true}
-          className="rounded-full"
+          className="rounded-full shadow-inner"
         />
 
         <InputField
@@ -82,7 +97,7 @@ export default function Auth() {
           label="Password"
           type="password"
           required={true}
-          className="rounded-full"
+          className="rounded-full shadow-inner"
         />
 
         {authMode !== "login" && (
@@ -92,7 +107,7 @@ export default function Auth() {
             label="Confirm Password"
             type="password"
             required={true}
-            className="rounded-full"
+            className="rounded-full shadow-inner"
           />
         )}
 
