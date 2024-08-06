@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/navbar/Navbar";
 import { poppins } from "./fonts";
 import "./globals.css";
-import Providers from "@/lib/providers";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "Social Media App",

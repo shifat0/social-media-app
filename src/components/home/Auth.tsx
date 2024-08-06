@@ -7,12 +7,18 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import InputField from "../form/InputField";
-import { signUpFormSchema, loginFormSchema } from "@/lib/formSchema";
+import { signUpFormSchema, loginFormSchema } from "@/utils/formSchema";
 import getGoogleOAuthUrl from "@/utils/getGoogleOAuthUrl";
 import { FcGoogle } from "react-icons/fc";
+import { usePostData } from "@/hooks/useApi";
+import { authEndPoint } from "@/lib/endPoints";
+import { toast } from "react-toastify";
 
 export default function Auth() {
   const [authMode, setAuthMode] = useState<string>("login");
+
+  // Api
+  const { mutateAsync } = usePostData(authEndPoint.logIn);
 
   // Setting formSchema based on authMode
   const formSchema = authMode === "login" ? loginFormSchema : signUpFormSchema;
@@ -39,8 +45,17 @@ export default function Auth() {
   });
 
   // Hanlding Form Submission
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: any) => {
+    try {
+      if (authMode === "login") {
+        const response: any = await mutateAsync({ payload: data });
+        console.log(response);
+        toast.success(response?.message);
+        return;
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
   return (
