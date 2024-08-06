@@ -3,13 +3,10 @@
 import React from "react";
 import Icon from "@/lib/icon";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { modernAntique } from "@/app/fonts";
-
-type Props = {};
-
-const isLoggedIn = false;
+import Cookies from "js-cookie";
 
 const navData = [
   {
@@ -32,25 +29,23 @@ const navData = [
     icon: <Icon name="user" />,
     link: "/profile",
   },
-  {
-    name: isLoggedIn ? "Logout" : "Login",
-    icon: isLoggedIn ? (
-      <Icon name="log-out" className="text-destructive" />
-    ) : (
-      <Icon name="log-in" className="text-green-400" />
-    ),
-    link: "/login",
-  },
 ];
 
-export default function Navbar({}: Props) {
+export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const logOut = () => {
+    Cookies.remove("accessToken");
+    router.push("/login");
+  };
 
   return (
     <nav
       className={cn(
-        "sticky top-0 bg-primary-foreground shadow-sm",
-        !isLoggedIn && "hidden"
+        pathname === "/auth"
+          ? "hidden"
+          : "sticky top-0 bg-primary-foreground shadow-sm"
       )}
     >
       <div className="container">
@@ -71,6 +66,14 @@ export default function Navbar({}: Props) {
                 {React.cloneElement(navItem?.icon)}
               </Link>
             ))}
+            <div
+              className={cn(
+                "w-full flex items-center justify-center gap-3 py-2 hover:bg-gray-300 hover:rounded-md transition-colors duration-500 cursor-pointer"
+              )}
+              onClick={logOut}
+            >
+              <Icon name="log-out" className="text-destructive" />
+            </div>
           </div>
           <Icon name="search" />
         </div>
@@ -89,6 +92,12 @@ export default function Navbar({}: Props) {
               {React.cloneElement(navItem?.icon)}
             </Link>
           ))}
+          <div
+            className={cn("w-full flex items-center justify-center gap-3")}
+            onClick={logOut}
+          >
+            <Icon name="log-out" className="text-destructive" />
+          </div>
         </div>
       </div>
     </nav>

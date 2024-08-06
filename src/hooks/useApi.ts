@@ -6,6 +6,7 @@ import {
   UseMutationOptions,
 } from "@tanstack/react-query";
 import { getData, postData, updateData, deleteData } from "@/api/api";
+import { AxiosRequestConfig } from "axios";
 
 export const useGetData = <T>(
   endpoint: string,
@@ -21,6 +22,7 @@ export const useGetData = <T>(
 
 export const usePostData = <T>(
   endpoint: string,
+  requestOptions?: AxiosRequestConfig,
   options?: UseMutationOptions<
     T,
     unknown,
@@ -29,7 +31,8 @@ export const usePostData = <T>(
 ) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ payload, params }) => postData<T>(endpoint, payload, params),
+    mutationFn: ({ payload, params }) =>
+      postData<T>(endpoint, payload, params, requestOptions),
     ...options,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [endpoint] });
