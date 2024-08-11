@@ -3,7 +3,15 @@ import type { NextRequest } from "next/server";
 
 const authRoute = ["/auth"];
 
-export default function middleware(req: NextRequest) {
+export function middleware(req: NextRequest) {
+  // Bypass static file requests
+  if (
+    req.nextUrl.pathname.startsWith("/_next/static") ||
+    req.nextUrl.pathname.startsWith("/favicon.ico")
+  ) {
+    return NextResponse.next();
+  }
+
   const isAuthenticated = req.cookies.get("accessToken");
 
   if (!isAuthenticated && !authRoute.includes(req.nextUrl.pathname)) {
