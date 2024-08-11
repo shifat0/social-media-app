@@ -14,9 +14,11 @@ import { usePostData } from "@/hooks/useApi";
 import { authEndPoint } from "@/lib/endPoints";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Icon from "@/lib/icon";
 
 export default function AuthPage() {
   const [authMode, setAuthMode] = useState<string>("login");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -24,6 +26,13 @@ export default function AuthPage() {
   const { mutateAsync } = usePostData(authEndPoint.logIn, {
     withCredentials: true,
   });
+
+  const { mutateAsync: signUpMutationAsync } = usePostData(
+    authEndPoint.signUp,
+    {
+      withCredentials: true,
+    }
+  );
 
   // Setting formSchema based on authMode
   const formSchema = authMode === "login" ? loginFormSchema : signUpFormSchema;
@@ -52,20 +61,31 @@ export default function AuthPage() {
   // Hanlding Form Submission
   const onSubmit = async (data: any) => {
     try {
+      setIsLoading(true);
+
       if (authMode === "login") {
         const response: any = await mutateAsync({ payload: data });
 
         router.push("/");
+        setIsLoading(false);
         toast.success(response?.message);
         return;
       }
+
+      const response: any = await signUpMutationAsync({ payload: data });
+
+      router.push("/auth/otp");
+      setIsLoading(false);
+      toast.success(response?.message);
+      return;
     } catch (error: any) {
+      setIsLoading(false);
       toast.error(error?.response?.data?.message);
     }
   };
 
   return (
-    <section className="h-screen flex flex-col items-center justify-center gap-4">
+    <section className="h-screen flex flex-col items-center justify-center gap-4 my-4">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -137,8 +157,25 @@ export default function AuthPage() {
             Forgot your password?
           </p>
 
-          <Button type="submit" variant="default" className="rounded-full">
-            {authMode === "login" ? "Login" : "SignUp"}
+          <Button
+            type="submit"
+            variant="default"
+            className="rounded-full flex items-center gap-3"
+            disabled={isLoading}
+          >
+            {isLoading && (
+              <Icon name="loader-circle" className="animate-spin" />
+            )}
+
+            <p>
+              {authMode === "login"
+                ? isLoading
+                  ? "Logging In..."
+                  : "Login"
+                : isLoading
+                ? "Signing up..."
+                : "SignUp"}
+            </p>
           </Button>
 
           {authMode === "login" ? (
