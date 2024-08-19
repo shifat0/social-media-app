@@ -43,7 +43,7 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        pathname === "/auth"
+        pathname.startsWith("/auth")
           ? "hidden"
           : "sticky top-0 bg-primary-foreground shadow-sm"
       )}
