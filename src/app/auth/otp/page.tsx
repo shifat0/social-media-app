@@ -30,8 +30,6 @@ export default function AuthOTPPage() {
   const router = useRouter();
   const timeLeft = useCountdown({ minutes: 0.5 });
 
-  console.log(timeLeft);
-
   // Api
   const { mutateAsync, isPending } = usePostData(authEndPoint.verifyOtp, {
     withCredentials: true,
