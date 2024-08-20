@@ -23,11 +23,14 @@ import { authEndPoint } from "@/lib/endPoints";
 import { usePostData } from "@/hooks/useApi";
 import { toast } from "react-toastify";
 import Spinner from "@/components/shared/Spinner";
-import Countdown from "@/components/auth/CountDown";
 import { useRouter } from "next/navigation";
+import useCountdown from "@/hooks/useCountDown";
 
 export default function AuthOTPPage() {
   const router = useRouter();
+  const timeLeft = useCountdown({ minutes: 0.5 });
+
+  console.log(timeLeft);
 
   // Api
   const { mutateAsync, isPending } = usePostData(authEndPoint.verifyOtp, {
@@ -87,9 +90,20 @@ export default function AuthOTPPage() {
           )}
         />
 
-        <Countdown minutes={0.5} />
+        {/* CountDown */}
+        <p>
+          {timeLeft?.seconds ? (
+            `${timeLeft.seconds} seconds left`
+          ) : (
+            <span className="text-red-400">Times Up</span>
+          )}
+        </p>
 
-        <Button type="submit" disabled={isPending}>
+        <Button
+          type="submit"
+          disabled={isPending || !timeLeft?.seconds}
+          className="disabled:cursor-not-allowed"
+        >
           {isPending ? <Spinner /> : "Submit"}
         </Button>
       </form>
