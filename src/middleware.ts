@@ -4,6 +4,8 @@ import type { NextRequest } from "next/server";
 const authBaseRoute = "/auth";
 
 export function middleware(req: NextRequest) {
+  const isAuthenticated = req.cookies.get("accessToken");
+
   // Bypass static file requests
   if (
     req.nextUrl.pathname.startsWith("/_next/static") ||
@@ -11,8 +13,6 @@ export function middleware(req: NextRequest) {
   ) {
     return NextResponse.next();
   }
-
-  const isAuthenticated = req.cookies.get("accessToken");
 
   if (!isAuthenticated && !req.nextUrl.pathname.startsWith(authBaseRoute)) {
     const authURL = new URL("/auth", req.nextUrl.origin);
