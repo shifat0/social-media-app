@@ -37,7 +37,7 @@ export default function Navbar() {
 
   const logOut = () => {
     Cookies.remove("accessToken");
-    router.push("/login");
+    router.push("/auth");
   };
 
   return (
