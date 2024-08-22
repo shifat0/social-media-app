@@ -36,3 +36,23 @@ export const OtpFormSchema = z.object({
     message: "Your one-time password must be 6 characters.",
   }),
 });
+
+export const forgetPasswordFormSchema = z.object({
+  email: z.string().email("Invalid email format"),
+});
+
+export const resetPasswordFormSchema = z.object({
+  newPassword: z
+    .string()
+    .min(6, "New Password must be at least 6 characters.")
+    .max(18, "New Password must be at most 18 characters.")
+    .regex(
+      /^[a-zA-Z0-9]/,
+      "password must contain a uppercase letter, a number"
+    ),
+  confirmPassword: z
+    .string()
+    .refine((data: any) => data.password === data.confirmPassword, {
+      message: "Passwords do not match.",
+    }),
+});
