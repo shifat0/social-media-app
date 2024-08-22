@@ -14,7 +14,7 @@ import { usePostData } from "@/hooks/useApi";
 import { authEndPoint } from "@/lib/endPoints";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import Icon from "@/lib/icon";
+import Spinner from "@/components/shared/Spinner";
 
 export default function AuthPage() {
   const [authMode, setAuthMode] = useState<string>("login");
@@ -64,7 +64,7 @@ export default function AuthPage() {
       setIsLoading(true);
 
       if (authMode === "login") {
-        const response: any = await mutateAsync({ payload: data });
+        const response = (await mutateAsync({ payload: data })) as Response;
 
         router.push("/");
         setIsLoading(false);
@@ -72,7 +72,9 @@ export default function AuthPage() {
         return;
       }
 
-      const response: any = await signUpMutationAsync({ payload: data });
+      const response = (await signUpMutationAsync({
+        payload: data,
+      })) as Response;
 
       router.push("/auth/otp");
       setIsLoading(false);
@@ -163,19 +165,17 @@ export default function AuthPage() {
             className="rounded-full flex items-center gap-3"
             disabled={isLoading}
           >
-            {isLoading && (
-              <Icon name="loader-circle" className="animate-spin" />
+            {isLoading ? (
+              authMode === "login" ? (
+                <Spinner label="Logging In..." />
+              ) : (
+                <Spinner label="Signing up..." />
+              )
+            ) : authMode === "login" ? (
+              "Login"
+            ) : (
+              "SignUp"
             )}
-
-            <p>
-              {authMode === "login"
-                ? isLoading
-                  ? "Logging In..."
-                  : "Login"
-                : isLoading
-                ? "Signing up..."
-                : "SignUp"}
-            </p>
           </Button>
 
           {authMode === "login" ? (

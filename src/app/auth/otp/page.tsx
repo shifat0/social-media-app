@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -27,6 +28,7 @@ import { useRouter } from "next/navigation";
 import useCountdown from "@/hooks/useCountDown";
 
 export default function AuthOTPPage() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
   const timeLeft = useCountdown({ minutes: 0.5 });
 
@@ -46,12 +48,15 @@ export default function AuthOTPPage() {
   // Handling OTP submission
   const onSubmit = async (data: z.infer<typeof OtpFormSchema>) => {
     try {
-      const response: any = await mutateAsync({ payload: data });
+      setIsLoading(true);
+      const response = (await mutateAsync({ payload: data })) as Response;
 
       toast.success(response?.message);
+      setIsLoading(false);
       router.push("/");
       form.reset();
     } catch (error: any) {
+      setIsLoading(false);
       toast.error(error?.response?.data?.message);
     }
   };
@@ -99,10 +104,10 @@ export default function AuthOTPPage() {
 
         <Button
           type="submit"
-          disabled={isPending || !timeLeft?.seconds}
+          disabled={isLoading || !timeLeft?.seconds}
           className="disabled:cursor-not-allowed"
         >
-          {isPending ? <Spinner /> : "Submit"}
+          {isLoading ? <Spinner /> : "Submit"}
         </Button>
       </form>
     </Form>

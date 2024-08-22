@@ -12,6 +12,9 @@ interface TimeLeft {
 export default function useCountdown({
   minutes,
 }: CountdownProps): TimeLeft | null {
+  const [startTime] = useState(new Date());
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({ minutes, seconds: 0 });
+
   const calculateTimeLeft = (): TimeLeft => {
     const difference =
       minutes * 60 * 1000 - (new Date().getTime() - startTime.getTime());
@@ -27,16 +30,13 @@ export default function useCountdown({
     return timeLeft;
   };
 
-  const [startTime] = useState(new Date());
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
-
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
 
-    return () => clearTimeout(timer);
-  });
+    return () => clearInterval(timer);
+  }, [minutes, startTime]);
 
   return Object.keys(timeLeft).length ? timeLeft : null;
 }
