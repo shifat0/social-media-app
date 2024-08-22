@@ -36,3 +36,7 @@ export const OtpFormSchema = z.object({
     message: "Your one-time password must be 6 characters.",
   }),
 });
+
+export const forgetPasswordFormSchema = z.object({
+  email: z.string().email("Invalid email format"),
+});

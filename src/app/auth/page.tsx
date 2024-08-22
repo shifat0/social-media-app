@@ -15,6 +15,7 @@ import { authEndPoint } from "@/lib/endPoints";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/shared/Spinner";
+import Link from "next/link";
 
 export default function AuthPage() {
   const [authMode, setAuthMode] = useState<string>("login");
@@ -87,14 +88,14 @@ export default function AuthPage() {
   };
 
   return (
-    <section className="h-screen flex flex-col items-center justify-center gap-4 my-4">
+    <section className="min-h-screen flex flex-col items-center justify-center gap-4 my-4">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-1/2 my-2 flex flex-col justify-center gap-4 bg-white p-5 rounded-xl shadow-md"
+          className="w-full md:w-1/2 my-2 flex flex-col justify-center gap-4 bg-white p-5 rounded-xl shadow-md"
         >
           <div className="flex flex-col items-center justify-center gap-4">
-            <h2>Login with</h2>
+            <h2>{authMode === "login" ? "Login with" : "Sign Up with"}</h2>
 
             <a
               href={getGoogleOAuthUrl()}
@@ -155,9 +156,12 @@ export default function AuthPage() {
             />
           )}
 
-          <p className="text-linkText underline underline-offset-4 text-xs cursor-pointer">
+          <Link
+            href="/auth/forget-password"
+            className="text-linkText underline underline-offset-4 text-xs"
+          >
             Forgot your password?
-          </p>
+          </Link>
 
           <Button
             type="submit"
