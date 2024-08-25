@@ -50,9 +50,15 @@ export default function Navbar() {
     >
       <div className="container">
         {/* Left Side */}
-        <div className="flex items-center justify-between gap-6 my-2 md:my-0">
-          <h1 className={`${modernAntique.className}`}>Social Media</h1>
-          <div className="hidden md:flex items-center justify-between gap-3 w-1/2">
+        <div className="flex items-center gap-6 my-2 md:my-0">
+          <h1
+            className={`${modernAntique.className} basis-1/2 md:basis-1/4 text-nowrap`}
+          >
+            Social Media
+          </h1>
+
+          {/* NavigationItem */}
+          <div className="hidden md:flex items-center justify-between gap-3 basis-1/2">
             {navData?.map((navItem, index) => (
               <Link
                 key={index}
@@ -75,7 +81,11 @@ export default function Navbar() {
               <Icon name="log-out" className="text-destructive" />
             </div>
           </div>
-          <Icon name="search" />
+
+          {/* Search Icon */}
+          <div className="basis-1/2 md:basis-1/4 flex justify-end">
+            <Icon name="search" />
+          </div>
         </div>
 
         <div className="flex items-center justify-between md:hidden">
