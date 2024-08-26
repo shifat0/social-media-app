@@ -80,3 +80,25 @@
     @apply text-xl sm:text-2xl;
   }
 }
+
+.scrollbar {
+  scrollbar-gutter: stable;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(73, 70, 70, 0.5);
+  border-radius: 10px;
+  border: 3px solid transparent;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(73, 70, 70, 0.7);
+}

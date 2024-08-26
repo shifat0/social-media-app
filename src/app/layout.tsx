@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`bg-secondary text-secondary-foreground dark:bg-primary dark:text-primary-foreground  ${poppins.className}`}
+        className={`bg-secondary text-secondary-foreground dark ${poppins.className}`}
       >
         <Navbar />
 
