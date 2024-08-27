@@ -92,7 +92,7 @@ export default function AuthPage() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full md:w-1/2 my-2 flex flex-col justify-center gap-4 bg-white p-5 rounded-xl shadow-md"
+          className="w-full md:w-1/2 my-2 flex flex-col justify-center gap-4 bg-primary-foreground p-5 rounded-xl shadow-md"
         >
           <div className="flex flex-col items-center justify-center gap-4">
             <h2>{authMode === "login" ? "Login with" : "Sign Up with"}</h2>
