@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { modernAntique } from "@/app/fonts";
 import Cookies from "js-cookie";
+import { NavDropdown } from "./NavDropDown";
 
 const navData = [
   {
@@ -64,7 +65,7 @@ export default function Navbar() {
                 key={index}
                 href={navItem?.link}
                 className={cn(
-                  "w-full flex items-center justify-center gap-3 py-2 hover:bg-gray-300 hover:rounded-md transition-colors duration-500",
+                  "w-full flex items-center justify-center gap-3 py-2 hover:bg-gray-300 hover:text-blue-500 hover:rounded-md transition-colors duration-500",
                   pathname === navItem?.link &&
                     "text-blue-500 border-b-2 border-b-blue-500 hover:bg-primary-foreground"
                 )}
@@ -72,14 +73,8 @@ export default function Navbar() {
                 {React.cloneElement(navItem?.icon)}
               </Link>
             ))}
-            <div
-              className={cn(
-                "w-full flex items-center justify-center gap-3 py-2 hover:bg-gray-300 hover:rounded-md transition-colors duration-500 cursor-pointer"
-              )}
-              onClick={logOut}
-            >
-              <Icon name="log-out" className="text-destructive" />
-            </div>
+
+            <NavDropdown logOut={logOut} />
           </div>
 
           {/* Search Icon */}
@@ -102,12 +97,8 @@ export default function Navbar() {
               {React.cloneElement(navItem?.icon)}
             </Link>
           ))}
-          <div
-            className={cn("w-full flex items-center justify-center gap-3")}
-            onClick={logOut}
-          >
-            <Icon name="log-out" className="text-destructive" />
-          </div>
+
+          <NavDropdown logOut={logOut} />
         </div>
       </div>
     </nav>
