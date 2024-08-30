@@ -4,18 +4,18 @@ import RightSidebar from "./RightSidebar";
 
 export default function HomePage() {
   return (
-    <section className="flex flex-row gap-8">
-      <div className="hidden md:block md:basis-1/4 bg-primary-foreground">
+    <main className="flex flex-row gap-8">
+      <section className="hidden md:block md:basis-1/4 bg-primary-foreground">
         <LeftSidebar />
-      </div>
+      </section>
 
-      <div className="basis-full md:basis-1/2 bg-primary-foreground">
+      <section className="basis-full md:basis-1/2">
         <Main />
-      </div>
+      </section>
 
-      <div className="hidden md:block md:basis-1/4 bg-red-600">
+      <section className="hidden md:block md:basis-1/4 bg-red-600">
         <RightSidebar />
-      </div>
-    </section>
+      </section>
+    </main>
   );
 }
