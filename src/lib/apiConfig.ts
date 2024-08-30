@@ -1,5 +1,6 @@
 import axios from "axios";
+import { envConfig } from "./envConfig";
 
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_SERVER_ENDPOINT,
+  baseURL: envConfig.apiBaseUrl,
 });
