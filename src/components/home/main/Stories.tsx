@@ -1,7 +1,14 @@
+import React from "react";
 import StoryCard from "@/components/cards/StoryCard";
 import OptimizedImage from "@/components/shared/OptimizedImage";
 import Icon from "@/lib/icon";
-import React from "react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 type Props = {};
 
@@ -31,10 +38,22 @@ export default async function Stories({}: Props) {
         </div>
 
         {/* Other random friends story cards */}
-        <StoryCard />
-        <StoryCard />
-        <StoryCard />
-        <StoryCard />
+        <Carousel
+          opts={{
+            align: "start",
+          }}
+          className="w-[calc(100%-158px)]"
+        >
+          <CarouselContent className="ml-0 flex items-center gap-3">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <CarouselItem key={index} className="pl-0 basis-1/3">
+                <StoryCard />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-1" />
+          <CarouselNext className="right-1" />
+        </Carousel>
       </div>
     </div>
   );
