@@ -56,3 +56,7 @@ export const resetPasswordFormSchema = z.object({
       message: "Passwords do not match.",
     }),
 });
+
+export const PostFormSchema = z.object({
+  post: z.string(),
+});
