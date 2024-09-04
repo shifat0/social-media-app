@@ -1,14 +1,11 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import WritePostForm from "./WritePostForm";
 
 export default function WritePostModal() {
   return (
@@ -24,12 +21,8 @@ export default function WritePostModal() {
             Create Post
           </DialogTitle>
         </DialogHeader>
-        Post Form will be here
-        <DialogFooter>
-          <Button type="submit" className="w-full">
-            Create Post
-          </Button>
-        </DialogFooter>
+
+        <WritePostForm />
       </DialogContent>
     </Dialog>
   );
