@@ -11,11 +11,12 @@ import { AxiosRequestConfig } from "axios";
 export const useGetData = <T>(
   endpoint: string,
   params: Record<string, any> = {},
-  options?: UseQueryOptions<T>
+  requestOptions?: AxiosRequestConfig,
+  options?: UseQueryOptions<T, unknown>
 ) => {
   return useQuery({
     queryKey: [endpoint],
-    queryFn: () => getData<T>(endpoint, params),
+    queryFn: async () => await getData<T>(endpoint, params, requestOptions),
     ...options,
   });
 };
@@ -31,8 +32,8 @@ export const usePostData = <T>(
 ) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ payload, params }) =>
-      postData<T>(endpoint, payload, params, requestOptions),
+    mutationFn: async ({ payload, params }) =>
+      await postData<T>(endpoint, payload, params, requestOptions),
     ...options,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [endpoint] });
@@ -50,8 +51,8 @@ export const useUpdateData = <T>(
 ) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ payload, params }) =>
-      updateData<T>(endpoint, payload, params),
+    mutationFn: async ({ payload, params }) =>
+      await updateData<T>(endpoint, payload, params),
     ...options,
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
@@ -67,7 +68,7 @@ export const useDeleteData = <T>(
 ) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ params }) => deleteData<T>(endpoint, params),
+    mutationFn: async ({ params }) => await deleteData<T>(endpoint, params),
     ...options,
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
