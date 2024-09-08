@@ -5,3 +5,7 @@ export const authEndPoint = {
   forgetPassword: "/auth/forget-password",
   resetPassword: "/auth/reset-password",
 };
+
+export const userEndPoint = (userId: string) => ({
+  getProfile: `/user/profile/${userId}`,
+});
