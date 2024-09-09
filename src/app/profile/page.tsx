@@ -1,42 +1,53 @@
+import React from "react";
+import { getData } from "@/api/api";
 import CoverPhoto from "@/components/profile/CoverPhoto";
-import { useGetData } from "@/hooks/useApi";
 import { userEndPoint } from "@/lib/endPoints";
 import getUserInfo from "@/utils/decodedUserInfo";
-import { cookies, headers } from "next/headers";
-import React from "react";
-
-interface UserProfileResponse extends Response {
-  data: any;
-}
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { getServerCookie } from "@/utils/getServerCookie";
+import { IUserProfileResponse } from "@/types/response";
 
 export default async function ProfilePage() {
-  const accessToken = cookies().get("accessToken")?.value;
+  const accessToken = getServerCookie("accessToken");
+
   // Getting user info from jwt decoded token
   const { _id } = getUserInfo();
 
-  // const { getProfile } = userEndPoint(_id);
-  // const { data, error } = useGetData<UserProfileResponse>(
-  //   getProfile,
-  //   {},
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer ${accessToken}`,
-  //     },
-  //   },
-  //   { queryKey: ["user"] }
-  // );
+  // Fetch Profile endpoint
+  const { getProfile } = userEndPoint(_id);
 
-  // console.log({ error });
+  // Prefetching Data
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: [getProfile],
+    queryFn: async () =>
+      getData<IUserProfileResponse>(
+        getProfile,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      ),
+  });
 
   return (
     <main>
-      <CoverPhoto userId={_id} />
-      <div>
-        <div>Profile Photo</div>
-        <div>Profile Information</div>
-      </div>
-      <div>Profile Tabs</div>
-      <div>Tab Details</div>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <CoverPhoto userId={_id} />
+        <div>
+          <div>Profile Photo</div>
+          <div>Profile Information</div>
+        </div>
+        <div>Profile Tabs</div>
+        <div>Tab Details</div>
+      </HydrationBoundary>
     </main>
   );
 }
