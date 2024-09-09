@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { modernAntique } from "@/app/fonts";
 import Cookies from "js-cookie";
 import { NavDropdown } from "./NavDropDown";
+import { cookieNames } from "@/lib/cookieNames";
 
 const navData = [
   {
@@ -37,7 +38,7 @@ export default function Navbar() {
   const router = useRouter();
 
   const logOut = () => {
-    Cookies.remove("accessToken");
+    Cookies.remove(cookieNames.accessToken);
     router.push("/auth");
   };
 

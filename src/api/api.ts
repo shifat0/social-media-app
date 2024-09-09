@@ -1,5 +1,9 @@
 import { api } from "@/lib/apiConfig";
+import { cookieNames } from "@/lib/cookieNames";
+import { getClientCookie } from "@/utils/getClientCookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
+
+const accessToken = getClientCookie(cookieNames.accessToken);
 
 export const getData = async <T>(
   endpoint: string,
@@ -8,6 +12,9 @@ export const getData = async <T>(
 ): Promise<T> => {
   const response: AxiosResponse<T> = await api.get(endpoint, {
     params,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
     ...requestOptions,
   });
 
