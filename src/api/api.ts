@@ -1,8 +1,9 @@
 import { api } from "@/lib/apiConfig";
+import { cookieNames } from "@/lib/cookieNames";
 import { getClientCookie } from "@/utils/getClientCookie";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 
-const accessToken = getClientCookie("accessToken");
+const accessToken = getClientCookie(cookieNames.accessToken);
 
 export const getData = async <T>(
   endpoint: string,

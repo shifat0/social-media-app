@@ -10,9 +10,10 @@ import {
 } from "@tanstack/react-query";
 import { getServerCookie } from "@/utils/getServerCookie";
 import { IUserProfileResponse } from "@/types/response";
+import { cookieNames } from "@/lib/cookieNames";
 
 export default async function ProfilePage() {
-  const accessToken = getServerCookie("accessToken");
+  const accessToken = getServerCookie(cookieNames.accessToken);
 
   // Getting user info from jwt decoded token
   const { _id } = getUserInfo();
