@@ -42,8 +42,7 @@ export default async function ProfilePage() {
     <main>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <CoverPhoto userId={_id} />
-        <div>
-          <div>Profile Photo</div>
+        <div className="ml-[200px]">
           <div>Profile Information</div>
         </div>
         <div>Profile Tabs</div>

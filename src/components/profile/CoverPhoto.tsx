@@ -5,6 +5,7 @@ import { useGetData } from "@/hooks/useApi";
 import { userEndPoint } from "@/lib/endPoints";
 import { IUserProfileResponse } from "@/types/response";
 import Image from "next/image";
+import ProfilePicture from "./ProfilePicture";
 
 type Props = {
   userId: string;
@@ -19,7 +20,7 @@ export default function CoverPhoto({ userId }: Props): JSX.Element {
   const profile = data?.data;
 
   return (
-    <section>
+    <section className="relative">
       <div className="relative w-full h-[300px]">
         <Image
           src={
@@ -33,6 +34,8 @@ export default function CoverPhoto({ userId }: Props): JSX.Element {
           className="object-cover object-center rounded-lg"
         />
       </div>
+
+      <ProfilePicture profile={profile} />
     </section>
   );
 }
