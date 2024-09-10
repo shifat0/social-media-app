@@ -5,7 +5,7 @@ export interface IUserProfile {
   displayName: string;
   email: string;
   profilePicture?: string;
-  coverPicture?: Url;
+  coverPhoto?: string;
   twoFactorAuthentication?: boolean;
   verified?: boolean;
 }

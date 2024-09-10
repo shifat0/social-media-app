@@ -5,6 +5,7 @@ import { useGetData } from "@/hooks/useApi";
 import { userEndPoint } from "@/lib/endPoints";
 import { IUserProfileResponse } from "@/types/response";
 import Image from "next/image";
+import ProfilePicture from "./ProfilePicture";
 
 type Props = {
   userId: string;
@@ -19,16 +20,22 @@ export default function CoverPhoto({ userId }: Props): JSX.Element {
   const profile = data?.data;
 
   return (
-    <section>
+    <section className="relative">
       <div className="relative w-full h-[300px]">
         <Image
-          src={profile?.profilePicture as string}
-          alt={`profile picture of ${profile?.displayName}`}
+          src={
+            profile?.coverPhoto
+              ? (profile?.coverPhoto as string)
+              : "/assets/blank-cover-photo.jpg"
+          }
+          alt={`cover photo of ${profile?.displayName}`}
           fill
           sizes="100vw"
           className="object-cover object-center rounded-lg"
         />
       </div>
+
+      <ProfilePicture profile={profile} />
     </section>
   );
 }
