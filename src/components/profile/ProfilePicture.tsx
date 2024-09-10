@@ -8,8 +8,8 @@ type Props = {
 
 export default function ProfilePicture({ profile }: Props): JSX.Element {
   return (
-    <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 lg:left-10 lg:translate-x-0">
-      <div className="relative w-[150px] h-[150px] rounded-full bg-secondary">
+    <div className="absolute -bottom-16 lg:-bottom-32 left-1/2 transform -translate-x-1/2 lg:left-10 lg:translate-x-0">
+      <div className="relative w-[160px] h-[160px] rounded-full bg-secondary">
         <Image
           src={
             profile?.profilePicture

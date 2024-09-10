@@ -19,12 +19,12 @@ export default function BasicProfileInformation({ userId }: Props) {
 
   return (
     <section className="py-4 border-b-2 border-primary-foreground">
-      <div className="ml-[200px] flex flex-col gap-1">
+      <div className="mt-[100px] lg:ml-[240px] flex flex-col gap-1 text-center">
         <h1 className="font-semibold">{profile?.displayName}</h1>
 
         <span>0 Friends</span>
 
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col lg:flex-row items-center lg:justify-between gap-1">
           <div>Friends Images</div>
 
           <div className="flex items-center gap-3">
