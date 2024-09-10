@@ -22,8 +22,12 @@ export default function CoverPhoto({ userId }: Props): JSX.Element {
     <section>
       <div className="relative w-full h-[300px]">
         <Image
-          src={profile?.profilePicture as string}
-          alt={`profile picture of ${profile?.displayName}`}
+          src={
+            profile?.coverPhoto
+              ? (profile?.coverPhoto as string)
+              : "/assets/blank-cover-photo.jpg"
+          }
+          alt={`cover photo of ${profile?.displayName}`}
           fill
           sizes="100vw"
           className="object-cover object-center rounded-lg"
