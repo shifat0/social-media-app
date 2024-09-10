@@ -11,6 +11,7 @@ import {
 import { getServerCookie } from "@/utils/getServerCookie";
 import { IUserProfileResponse } from "@/types/response";
 import { cookieNames } from "@/lib/cookieNames";
+import BasicProfileInformation from "@/components/profile/BasicProfileInformation";
 
 export default async function ProfilePage() {
   const accessToken = getServerCookie(cookieNames.accessToken);
@@ -42,9 +43,7 @@ export default async function ProfilePage() {
     <main>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <CoverPhoto userId={_id} />
-        <div className="ml-[200px]">
-          <div>Profile Information</div>
-        </div>
+        <BasicProfileInformation userId={_id} />
         <div>Profile Tabs</div>
         <div>Tab Details</div>
       </HydrationBoundary>
