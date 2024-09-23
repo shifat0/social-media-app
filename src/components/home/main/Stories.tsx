@@ -9,6 +9,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 type Props = {};
 
@@ -19,23 +28,44 @@ export default async function Stories({}: Props) {
   return (
     <div className="bg-primary-foreground p-2 rounded-lg">
       <div className="flex items-center gap-3">
-        {/* First card for create story */}
-        <div className="min-w-[150px] h-[200px] rounded-lg bg-secondary cursor-pointer">
-          <OptimizedImage
-            src={imageUrl}
-            alt="Profile Picture"
-            className="min-w-full h-2/3"
-            imageClassName="rounded-t-lg"
-          />
+        <Dialog>
+          <DialogTrigger asChild>
+            {/* First card for create story */}
+            <div className="min-w-[150px] h-[200px] rounded-lg bg-secondary cursor-pointer">
+              <OptimizedImage
+                src={imageUrl}
+                alt="Profile Picture"
+                className="min-w-full h-2/3"
+                imageClassName="rounded-t-lg"
+              />
 
-          <div className="h-1/3 relative text-center flex items-center justify-center">
-            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-secondary size-8 rounded-full p-1 flex items-center justify-center">
-              <Icon name="circle-plus" />
+              <div className="h-1/3 relative text-center flex items-center justify-center">
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-secondary size-8 rounded-full p-1 flex items-center justify-center">
+                  <Icon name="circle-plus" />
+                </div>
+
+                <span>Create Your Story</span>
+              </div>
             </div>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-1/3 bg-primary-foreground flex items-center justify-center">
+            <DialogTitle className="text-center border-b-2 pb-4">
+              Create Story
+            </DialogTitle>
 
-            <span>Create Your Story</span>
-          </div>
-        </div>
+            <>
+              <Label htmlFor="upload-story" className="p-4 border">
+                Upload Image
+              </Label>
+              <Input
+                id="upload-story"
+                name="upload-story"
+                type="file"
+                className="hidden"
+              />
+            </>
+          </DialogContent>
+        </Dialog>
 
         {/* Other random friends story cards */}
         <Carousel
