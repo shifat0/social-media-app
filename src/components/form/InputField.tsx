@@ -7,12 +7,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import React from "react";
 import { UseFormReturn } from "react-hook-form";
 
 interface Props {
   form: UseFormReturn | any | undefined;
   name: string;
-  label: string;
+  label: string | React.ReactNode | (() => React.JSX.Element);
   type?: string;
   placeholder?: string;
   required?: boolean;
@@ -30,10 +31,6 @@ export default function InputField({
   labelClassName,
   className,
 }: Props) {
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
-
   return (
     <FormField
       control={form.control}
@@ -41,7 +38,10 @@ export default function InputField({
       render={({ field }) => (
         <FormItem>
           <FormLabel className={cn(labelClassName)}>
-            {label} {required && <span className="text-red-500">*</span>}
+            {typeof label === "function" ? label() : label}
+            {required && type !== "file" && (
+              <span className="text-red-500"> *</span>
+            )}
           </FormLabel>
           <FormControl>
             <Input

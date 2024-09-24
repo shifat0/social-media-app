@@ -60,3 +60,11 @@ export const resetPasswordFormSchema = z.object({
 export const PostFormSchema = z.object({
   post: z.string(),
 });
+
+export const UploadImageSchema = z.object({
+  image: z
+    .custom<FileList>((files) => files && files[0]?.type.startsWith("image/"))
+    .refine((files) => files.length > 0, {
+      message: "You must upload an image",
+    }),
+});

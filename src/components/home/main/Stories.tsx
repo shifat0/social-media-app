@@ -12,12 +12,10 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import UploadStory from "./UploadStory";
 
 type Props = {};
 
@@ -53,17 +51,7 @@ export default async function Stories({}: Props) {
               Create Story
             </DialogTitle>
 
-            <>
-              <Label htmlFor="upload-story" className="p-4 border">
-                Upload Image
-              </Label>
-              <Input
-                id="upload-story"
-                name="upload-story"
-                type="file"
-                className="hidden"
-              />
-            </>
+            <UploadStory />
           </DialogContent>
         </Dialog>
 
