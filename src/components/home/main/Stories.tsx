@@ -46,7 +46,10 @@ export default async function Stories({}: Props) {
               </div>
             </div>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-1/3 bg-primary-foreground">
+          <DialogContent
+            className="sm:max-w-1/3 bg-primary-foreground"
+            aria-describedby="Create Story"
+          >
             <DialogTitle className="text-center border-b-2 pb-4">
               Create Story
             </DialogTitle>
