@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { UseFormReturn } from "react-hook-form";
 
-interface Props {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   form: UseFormReturn | any | undefined;
   name: string;
   label: string | React.ReactNode | (() => React.JSX.Element);
@@ -30,6 +30,7 @@ export default function InputField({
   required = true,
   labelClassName,
   className,
+  ...rest
 }: Props) {
   return (
     <FormField
@@ -49,6 +50,7 @@ export default function InputField({
               placeholder={placeholder}
               className={cn(className, "border")}
               {...field}
+              {...rest}
             />
           </FormControl>
           <FormMessage />
