@@ -7,7 +7,7 @@ import { UseFormReturn } from 'react-hook-form';
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     form: UseFormReturn | any | undefined;
     name: string;
-    label: string | React.ReactNode | (() => React.JSX.Element);
+    label: string;
     type?: string;
     placeholder?: string;
     required?: boolean;
@@ -33,8 +33,8 @@ export default function InputField({
             render={({ field }) => (
                 <FormItem>
                     <FormLabel className={cn(labelClassName)}>
-                        {typeof label === 'function' ? label() : label}
-                        {required && type !== 'file' && <span className="text-red-500"> *</span>}
+                        {label}
+                        {required && <span className="text-red-500"> *</span>}
                     </FormLabel>
                     <FormControl>
                         <Input
